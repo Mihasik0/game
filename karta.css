@@ -137,13 +137,15 @@ path.selected {
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding: 20px;
-    margin-top: 25px;
+    margin: 15px 0;
     transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
-
+/* Заголовок списка */
 .region-list h3 {
     color: #2d3748;
-    font-size: 1.25rem;
+    font-size: clamp(1.1rem, 4vw, 1.25rem); /* Адаптивный размер шрифта */
     margin: 0 0 1rem 0;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid #e2e8f0;
@@ -158,11 +160,12 @@ path.selected {
     font-size: 1.1em;
 }
 
+/* Список регионов */
 .region-list ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 500px;
+    max-height: 60vh;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e0 #f7fafc;
@@ -170,19 +173,19 @@ path.selected {
 
 /* Стилизация скроллбара */
 .region-list ul::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 
 .region-list ul::-webkit-scrollbar-track {
     background: #f7fafc;
-    border-radius: 3px;
 }
 
 .region-list ul::-webkit-scrollbar-thumb {
-    background-color: #cbd5e0;
-    border-radius: 3px;
+    background-color: #a0aec0;
+    border-radius: 2px;
 }
 
+/* Элементы списка */
 .region-list li {
     padding: 12px 16px;
     margin: 4px 0;
@@ -190,13 +193,14 @@ path.selected {
     background-color: #f8fafc;
     border-left: 3px solid #e2e8f0;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    font-size: clamp(0.9rem, 3.5vw, 1rem); /* Адаптивный размер шрифта */
     color: #4a5568;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Иконка перед элементом */
 .region-list li::before {
     content: "📍";
     margin-right: 10px;
@@ -210,6 +214,7 @@ path.selected {
     color: #2d3748;
 }
 
+/* Выбранный элемент */
 .region-list li.selected {
     background-color: #ebf8ff;
     border-left-color: #4299e1;
@@ -221,38 +226,82 @@ path.selected {
     content: "🔵";
 }
 
+/* Эффект нажатия для мобильных */
 .region-list li:active {
+    background-color: #e2e8f0;
     transform: scale(0.98);
 }
 
-/* Адаптивность */
+/* Адаптивность для разных размеров экранов */
 @media (max-width: 768px) {
     .region-list {
         padding: 16px;
-        margin-top: 20px;
+        margin: 12px 0;
+        border-radius: 10px;
     }
 
     .region-list h3 {
-        font-size: 1.1rem;
+        padding-bottom: 0.5rem;
     }
 
     .region-list li {
         padding: 10px 14px;
-        font-size: 0.9rem;
-    }
-
-    .region-list ul {
-        max-height: 300px;
+        margin: 3px 0;
     }
 }
 
 @media (max-width: 480px) {
     .region-list {
-        border-radius: 10px;
-        padding: 14px;
+        padding: 14px 12px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .region-list h3 {
+        font-size: 1.05rem;
     }
 
     .region-list li {
-        padding: 8px 12px;
+        padding: 10px 12px;
+        font-size: 0.92rem;
+    }
+
+    .region-list li::before {
+        margin-right: 8px;
     }
 }
+
+/* Анимация при наведении (только для десктопов) */
+@media (hover: hover) and (pointer: fine) {
+    .region-list li:hover {
+        background-color: #edf2f7;
+        transform: translateX(5px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        color: #2d3748;
+    }
+}
+
+/* Особые стили для очень маленьких экранов */
+@media (max-width: 360px) {
+    .region-list {
+        padding: 12px 10px;
+    }
+
+    .region-list li {
+        padding: 8px 10px;
+        font-size: 0.88rem;
+    }
+
+    .region-list li::before {
+        margin-right: 6px;
+        font-size: 0.8em;
+    }
+}
+
+/* Портретная ориентация на мобильных */
+@media (max-height: 600px) and (max-width: 768px) {
+    .region-list ul {
+        max-height: 50vh;
+    }
+}
+
