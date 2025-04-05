@@ -1,0 +1,258 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+#map-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+svg {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+path {
+    fill: #e0e0e0;
+    stroke: #fff;
+    stroke-width: 0.5;
+    transition: all 0.3s ease;
+}
+
+path:hover {
+    fill: #4CAF50;
+    cursor: pointer;
+    stroke-width: 1;
+}
+
+path.selected {
+    fill: #2196F3;
+    stroke: #0d8aee;
+    stroke-width: 1;
+}
+
+#region-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f0f8ff;
+    border-radius: 5px;
+    border-left: 4px solid #2196F3;
+    min-height: 60px;
+}
+
+#region-info p {
+    margin: 0;
+    color: #555;
+}
+
+#region-info strong {
+    color: #333;
+}
+
+/*выподающий список*/
+
+/* Основная структура */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh; /* На всю высоту экрана */
+}
+
+.sidebar {
+    width: 300px;
+    background: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    overflow-y: auto; /* Прокрутка если контента много */
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.map {
+    flex: 1; /* Занимает оставшееся пространство */
+    height: 100%;
+}
+
+/* Ваши существующие стили с небольшими изменениями */
+.controls {
+    margin-bottom: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.region-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.region-selector label {
+    font-weight: bold;
+    color: #333;
+}
+
+#region-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    background: white;
+}
+
+#reset-btn {
+    padding: 8px 15px;
+    background: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+#reset-btn:hover {
+    background: #d32f2f;
+}
+
+/*список регионов*/
+.region-list {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-top: 25px;
+    transition: all 0.3s ease;
+}
+
+.region-list h3 {
+    color: #2d3748;
+    font-size: 1.25rem;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.region-list h3::before {
+    content: "🗺️";
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+.region-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 #f7fafc;
+}
+
+/* Стилизация скроллбара */
+.region-list ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+.region-list ul::-webkit-scrollbar-track {
+    background: #f7fafc;
+    border-radius: 3px;
+}
+
+.region-list ul::-webkit-scrollbar-thumb {
+    background-color: #cbd5e0;
+    border-radius: 3px;
+}
+
+.region-list li {
+    padding: 12px 16px;
+    margin: 4px 0;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    border-left: 3px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #4a5568;
+}
+
+.region-list li::before {
+    content: "📍";
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+.region-list li:hover {
+    background-color: #edf2f7;
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    color: #2d3748;
+}
+
+.region-list li.selected {
+    background-color: #ebf8ff;
+    border-left-color: #4299e1;
+    color: #2b6cb0;
+    font-weight: 500;
+}
+
+.region-list li.selected::before {
+    content: "🔵";
+}
+
+.region-list li:active {
+    transform: scale(0.98);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .region-list {
+        padding: 16px;
+        margin-top: 20px;
+    }
+
+    .region-list h3 {
+        font-size: 1.1rem;
+    }
+
+    .region-list li {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+
+    .region-list ul {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .region-list {
+        border-radius: 10px;
+        padding: 14px;
+    }
+
+    .region-list li {
+        padding: 8px 12px;
+    }
+}
